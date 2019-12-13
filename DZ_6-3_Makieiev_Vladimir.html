@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание 6-3 по JsA Макеев Владимир</title>
+    <style>
+        hr {
+            border-style: double;
+            color: #006400;
+            margin: 0;
+        }
+        #circle {
+            width: 200px;
+            height: 200px;
+            background: #87CEFA;
+            -moz-border-radius: 100px;
+            -webkit-border-radius: 100px;
+            border-radius: 100px;
+            position: relative;
+        }
+        #start {
+            padding: 0;
+            margin-top: 50px;
+            margin-left: 50px;
+            width: 200px;
+            height: 200px;
+            background-color: #32CD32;
+            font-size: 24px;
+        }
+        #stop {
+            padding: 0;
+            margin-top: 50px;
+            width: 200px;
+            height: 200px;
+            background-color: #CD5C5C;
+            font-size: 24px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            let circle = document.getElementById("circle");
+            let startCircle = document.getElementById("start");
+            let stopCircle = document.getElementById("stop");
+            let crash = document.getElementById("crash");
+            var span;
+            var isClick = true;
+            var isReverse = null;
+            circle.style.width = "200px";
+            circle.style.left = "0px";
+            
+            startCircle.onclick = function () {
+                if (isClick) {
+                    span = setInterval(myCircle, 20);
+                    isClick = false;
+                } else {
+                    crash.style.visibility = "visible";
+                    setTimeout(function () {
+                        crash.style.visibility = "hidden";
+                    }, 1000);
+                }
+                function myCircle() {
+                    if (parseInt(circle.style.left) === 0) {
+                        isReverse = true;
+                    }
+                    if (parseInt(circle.style.left) === screen.width - parseInt(circle.style.width)) {
+                        isReverse = false;
+                    }
+                    if (!isReverse) {
+                        circle.style.left = parseInt(circle.style.left) - 10 + "px";
+                    }
+                    if (isReverse) {
+                        circle.style.left = parseInt(circle.style.left) + 10 + "px";
+                    }
+                }
+            };
+            stopCircle.onclick = function () {
+                clearInterval(span);
+                isClick = true;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="circle"></div>
+<hr>
+<button id="start">ЗАПУСТИТЬ</button>
+<button id="stop">ОСТАНОВИТЬ</button>
+</body>
+</html>

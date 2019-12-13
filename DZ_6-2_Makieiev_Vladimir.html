@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание 6-2 по JsA Макеев Владимир</title>
+    <style>
+        #square {
+            width: 120px;
+            height: 120px;
+            background: #40E0D0;
+            position: absolute;
+          }
+    </style>
+    <script>
+        window.onload = function () {
+            let square = document.getElementById("square");
+            square.onmousedown = function (e) {
+                
+                let moveX = e.clientX - square.getBoundingClientRect().left;
+                let moveY = e.clientY - square.getBoundingClientRect().top;
+                function mouseStep(clientX, clientY) {
+                    square.style.left = clientX - moveX + "px";
+                    square.style.top = clientY - moveY + "px";
+                }
+                mouseStep(e.clientX, e.clientY);
+                document.addEventListener("mousemove", myMouse);
+                function myMouse(e) {
+                    mouseStep(e.clientX, e.clientY);
+                }
+                square.onmouseup = function () {
+                    document.removeEventListener("mousemove", myMouse);
+                    
+                    square.onmouseup = null;
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+    <div id="square"></div>
+</body>
